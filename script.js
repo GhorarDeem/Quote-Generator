@@ -8,24 +8,25 @@ const loader = document.getElementById('loader');
 
 let apiQuotes = [];
 
-// Show Loading...
+// Loading Spinner
 
-function loading() {
+function showLoadingSpinner() {
     loader.hidden = false;
     quoteContainer.hidden = true;
 }
 
-// Hide Loading...
-
-function complete() {
-    quoteContainer.hidden = false;
-    loader.hidden = true;
+function hideLoadingSpinner() {
+    if (!loader.hidden)
+    {
+        quoteContainer.hidden = false;
+        loader.hidden = true;
+    }
 }
 
 // Get QUOTES from API
 
 async function getQuotes() {
-    loading();
+    showLoadingSpinner();
     const apiUrl = 'https://type.fit/api/quotes';
     
     try {
@@ -35,7 +36,7 @@ async function getQuotes() {
         newQuote();
 
     } catch(error) {
-        console.error();
+        console.log(error);
         // alert(error);
         // Catch ERROR here
     }
@@ -44,9 +45,9 @@ async function getQuotes() {
 // Show new Quote
 
 function newQuote() {
-    loading();
-    // pick random quotes
+    showLoadingSpinner();
 
+    // pick random quotes
     const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
     // console.log(quote); 
     // quoteAuthor.textContent = quote.author; 
@@ -55,9 +56,9 @@ function newQuote() {
     // Check if the 'Author' field is blank and replace it with "Unknown"
     if(!quote.author)
     {
-        quoteAuthor.textContent = "Unknown";
+        quoteAuthor.innerText = "Unknown";
     } else {
-        quoteAuthor.textContent = quote.author;
+        quoteAuthor.innerText = quote.author;
     }
     
     // Check the Quote length to determine the styling
@@ -68,10 +69,8 @@ function newQuote() {
         quoteText.classList.remove('long-quote');
     }
 
-    // Set the Quote and Hide the Loader
-
-    quoteText.textContent = quote.text;   
-    complete();
+    quoteText.innerText = quote.text;   
+    hideLoadingSpinner();
 
     console.log('new Quote generated');
 
@@ -81,7 +80,7 @@ function newQuote() {
 // Tweet a quote
 
 function tweetQuote() {
-    const twetterUrl = `https://twitter.com/intent/tweet?text=${quoteText.textContent} - ${quoteAuthor.textContent}`;
+    const twetterUrl = `https://twitter.com/intent/tweet?text=${quoteText.innerText} - ${quoteAuthor.innerText}`;
     window.open(twetterUrl, '_blank');
     
     console.log('Tweet quote option selected');
@@ -90,7 +89,7 @@ function tweetQuote() {
 // Share on Facebook
 
 function fbQuote() {
-    const facebookUrl = `https://www.facebook.com/dialog/share?text=${quoteText.textContent} - ${quoteAuthor.textContent}`;
+    const facebookUrl = `https://www.facebook.com/dialog/share?text=${quoteText.innerText} - ${quoteAuthor.innerText}`;
     window.open(facebookUrl, '_blank');
 
     console.log('Facebook Share option selected');
