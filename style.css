@@ -49,6 +49,13 @@ button:active {
 .fa-twitter {
     font-size: 1.5rem;
 }
+.facebook-button:hover {
+    color: #4267B2;
+}
+.fa-facebook-f {
+    font-size: 1.5rem;
+    padding: 0 0.3rem;
+}
 
 .quote-container {
     width: auto;

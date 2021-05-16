@@ -2,6 +2,7 @@ const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
 const quoteAuthor = document.getElementById('author');
 const twitterBtn = document.getElementById('twitter');
+const facebookBtn = document.getElementById('facebook');
 const newQuoteBtn = document.getElementById('new-quote');
 const loader = document.getElementById('loader');
 
@@ -86,10 +87,22 @@ function tweetQuote() {
     console.log('Tweet quote option selected');
 }
 
+// Share on Facebook
+
+function fbQuote() {
+    const facebookUrl = `https://www.facebook.com/dialog/share?text=${quoteText.textContent} - ${quoteAuthor.textContent}`;
+    window.open(facebookUrl, '_blank');
+
+    console.log('Facebook Share option selected');
+
+}
+
 // Event listeners
 
 newQuoteBtn.addEventListener('click', newQuote);
 twitterBtn.addEventListener('click', tweetQuote);
+facebookBtn.addEventListener('click',fbQuote);
+
 
 // ON Load
 
